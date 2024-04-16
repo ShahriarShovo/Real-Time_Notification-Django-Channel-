@@ -4,6 +4,8 @@ from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 from core.models import Notification
 
+
+
 @receiver(post_save, sender=Notification)
 def notification_created(sender, instance, created, **kwargs):
     if created:

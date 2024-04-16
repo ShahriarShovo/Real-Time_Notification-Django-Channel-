@@ -54,7 +54,7 @@
             <!-- Notification and Message Dropdowns -->
             <div class="col-lg-3 col-md-3 col-6">
                 <div class="d-flex justify-content-end align-items-center">
-                    
+
                     <!-- Notification Dropdown here you need to work -->
                     <div class="dropdown mr-2">
                         <button class="btn btn-transparent dropdown-toggle" type="button" id="notificationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -97,11 +97,9 @@
 </section>
 
 <!-- Bootstrap JS and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
+
     var websocket = new WebSocket(
         'ws://' + window.location.host + '/notifications/'
     );
@@ -111,6 +109,7 @@
     };
 
     websocket.onmessage = function(event) {
+        console.log(event);
         var data = JSON.parse(event.data);
         console.log(data.notification);
     
@@ -140,6 +139,11 @@
         console.log("Websocket connection closed");
     };
 </script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script> 
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 </body>
 </html>
