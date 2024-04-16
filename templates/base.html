@@ -1,0 +1,131 @@
+/* Bootstrap CSS */
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+/* Font Awesome CSS */
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+/* Custom CSS for Navbar */
+<style>
+    /* Navbar styling */
+    .header-main {
+        background-color: #ffffff; /* Change as needed */
+        padding: 10px 0;
+    }
+
+    .brand-wrap .logo {
+        width: 100px; /* Adjust logo width as needed */
+    }
+
+    .search {
+        margin-top: 5px; /* Adjust margin top as needed */
+    }
+
+    .notify {
+        position: relative;
+        top: -6px;
+        right: -12px;
+        font-size: 0.8rem;
+    }
+
+    .widget-header {
+        text-decoration: none;
+        color: #000000; /* Adjust color as needed */
+    }
+
+    .dropdown-menu {
+        min-width: 200px; /* Adjust minimum width as needed */
+    }
+
+    .scrollable-menu {
+        max-height: 200px; /* Adjust max height as needed */
+        overflow-y: auto;
+    }
+</style>
+
+
+<section class="header-main border-bottom">
+    <div class="container">
+        <div class="row align-items-center">
+            {% comment %} <div class="col-lg-2 col-md-3 col-6">
+                <a href="{% url 'index' %}" class="brand-wrap">
+                    <img class="logo" src="{% static 'images/logo.png' %}">
+                </a>
+            </div> {% endcomment %}
+
+            {% comment %} <div class="col-lg-7 col-md-6 col-6">
+                <form action="#" class="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" style="max-width: 520px;" placeholder="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div> {% endcomment %}
+
+            <div class="col-lg-3 col-md-3 col-6">
+                <div class="d-flex justify-content-end align-items-center">
+                    {% comment %} <div class="widget-header mr-3">
+                        <small class="text-muted">Logged In as {{ user.username }}</small>
+                        <div>
+                            <a href="{% url 'index' %}">Home</a><span class="dark-transp"> | </span>
+                            <a href="{% url 'user_dashboard' %}"> Dashboard</a>
+                        </div>
+                    </div> {% endcomment %}
+
+                    {% comment %} <a href="{% url 'view_wish_list' %}" class="widget-header pl-3 ml-2">
+                        <div class="icon icon-sm"><i class="fa fa-heart" style="color: black;"></i>
+						</div>
+                        <span class="badge badge-pill badge-danger notify">{{ request.user|wish_list_total }}</span>
+                    </a> {% endcomment %}
+
+                    {% comment %} <a href="{% url 'cart_view' %}" class="widget-header pl-3 ml-2">
+                        <div class="icon icon-sm"><i class="fa fa-shopping-cart" style="color: black;"></i></div>
+                        <span class="badge badge-pill badge-danger notify">{{ request.user|cart_total }}</span>
+                    </a> {% endcomment %}
+
+                    <div class="dropdown">
+                        <button class="btn btn-transparent dropdown-toggle" type="button" id="notificationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="icon icon-sm"><i class="fa fa-bell"></i></div>
+                            <span class="badge badge-pill badge-danger notify">{{ notification_count }}</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right scrollable-menu" aria-labelledby="notificationDropdown">
+                            <!-- Notification items go here -->
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="btn btn-transparent dropdown-toggle" type="button" id="messageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="icon icon-sm"><i class="fa fa-envelope"></i></div>
+                            <span class="badge badge-pill badge-danger notify">{{ message_count }}</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right scrollable-menu" aria-labelledby="messageDropdown">
+                            <!-- Message items go here -->
+                        </div>
+                    </div>
+
+					<div class="col-lg-3 col-md-3 col-6">
+						<div class="d-flex justify-content-end align-items-center">
+							<!-- Your existing code for "Logged In" text and other icons -->
+		
+							<div class="dropdown">
+								<button class="btn btn-transparent dropdown-toggle" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<div class="icon icon-sm"><i class="fa fa-user"></i></div>
+								</button>
+								<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+									<!-- User account options go here -->
+									<a class="dropdown-item" href=""></a>
+									<a class="dropdown-item" href="">Settings</a>
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="">Logout</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section> 

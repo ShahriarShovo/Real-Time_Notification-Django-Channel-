@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navbar</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        /* Your custom CSS styles */
+        .navbar-brand img {
+            max-height: 40px;
+        }
+        .search input[type="text"] {
+            max-width: 520px;
+        }
+        .icon {
+            color: black;
+        }
+        .notify {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+
+<section class="header-main border-bottom">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Navbar Brand -->
+            <div class="col-lg-2 col-md-3 col-6">
+                <a href="#" class="brand-wrap navbar-brand">
+                    <img class="logo" src="https://via.placeholder.com/150" alt="Logo">
+                </a>
+            </div>
+
+            <!-- Search Form (Optional) -->
+            <div class="col-lg-7 col-md-6 col-6">
+                <form action="#" class="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Notification and Message Dropdowns -->
+            <div class="col-lg-3 col-md-3 col-6">
+                <div class="d-flex justify-content-end align-items-center">
+                    
+                    <!-- Notification Dropdown here you need to work -->
+                    <div class="dropdown mr-2">
+                        <button class="btn btn-transparent dropdown-toggle" type="button" id="notificationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="icon icon-sm"><i class="fa fa-bell"></i></div>
+                            <span id="notificationCount" class="badge badge-pill badge-danger notify">0</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right scrollable-menu" aria-labelledby="notificationDropdown">
+                            <!-- Notification items go here -->
+                        </div>
+                    </div>
+
+                    <!-- Message Dropdown -->
+                    <div class="dropdown">
+                        <button class="btn btn-transparent dropdown-toggle" type="button" id="messageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="icon icon-sm"><i class="fa fa-envelope"></i></div>
+                            <span id="messageCount" class="badge badge-pill badge-danger notify">0</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right scrollable-menu" aria-labelledby="messageDropdown">
+                            <!-- Message items go here -->
+                        </div>
+                    </div>
+
+                    <!-- User Dropdown -->
+                    <div class="dropdown">
+                        <button class="btn btn-transparent dropdown-toggle" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="icon icon-sm"><i class="fa fa-user"></i></div>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                            <!-- User account options go here -->
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bootstrap JS and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    var websocket = new WebSocket(
+        'ws://' + window.location.host + '/notifications/'
+    );
+
+    websocket.onopen = function(event) {
+        console.log("Websocket connection open");
+    };
+
+    websocket.onmessage = function(event) {
+        var data = JSON.parse(event.data);
+        console.log(data.notification);
+    
+        // Update notification count badge
+        var notificationCount = data.notification_count;
+        document.getElementById("notificationCount").innerText = notificationCount;
+    
+        // Update notification items if notifications is an array
+        if (Array.isArray(data.notifications)) {
+            var dropdownMenu = document.getElementById("notificationDropdown").nextElementSibling;
+            dropdownMenu.innerHTML = ""; // Clear existing items
+            data.notifications.forEach(function(notification) {
+                var notificationItem = document.createElement("a");
+                notificationItem.className = "dropdown-item";
+                notificationItem.href = "#";
+                notificationItem.innerText = notification;
+                dropdownMenu.appendChild(notificationItem);
+            });
+        } else {
+            console.error("Invalid notifications data:", data.notifications);
+        }
+    };
+    
+    
+
+    websocket.onclose = function(event) {
+        console.log("Websocket connection closed");
+    };
+</script>
+
+</body>
+</html>
